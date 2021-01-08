@@ -7,7 +7,6 @@ import Vue from 'vue';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import { InertiaForm } from 'laravel-jetstream';
 import PortalVue from 'portal-vue';
-import Notifications from 'vue-notification';
 import LaravelPermissionToVueJS from 'laravel-permission-to-vuejs';
 import jQuery from 'jquery'
 window.jQuery = window.$ = jQuery
@@ -21,7 +20,6 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 Vue.use(LaravelPermissionToVueJS);
-Vue.use(Notifications);
 
 const app = document.getElementById('app');
 

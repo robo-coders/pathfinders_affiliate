@@ -31,6 +31,6 @@
         "feather-icons": "^4.28.0",
         "jquery": "^3.5.1",
         "laravel-permission-to-vuejs": "^2.0.5",
-        "vue-notification": "^1.3.20"
+        "vue-snotify": "^3.2.1"
     }
 }

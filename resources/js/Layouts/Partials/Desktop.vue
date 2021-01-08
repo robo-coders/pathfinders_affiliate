@@ -7,26 +7,26 @@
         <div class="side-nav__devider my-6"></div>
         <ul>
             <li>
-                <inertia-link href="/dashboard" :class="this.activeClassFunction">
+                <inertia-link href="/dashboard" :class="[isActiveClassFunction('/dashboard')]">
                     <div class="side-menu__icon"> <i data-feather="home"></i> </div>
                     <div class="side-menu__title"> Dashboard </div>
                 </inertia-link>
             </li>
             <li>
-                <inertia-link href="/profile" :class="this.activeClassFunction">
+                <inertia-link href="/profile" :class="[isActiveClassFunction('/profile')]">
                     <div class="side-menu__icon"> <i data-feather="user"></i> </div>
                     <div class="side-menu__title"> Profile </div>
                 </inertia-link>
             </li>
             <div v-if="is('administrator')">
                 <li>
-                    <inertia-link href="/general-commissions" :class="this.activeClassFunction">
+                    <inertia-link href="/general-commissions" :class="[isActiveClassFunction('/general-commissions')]">
                         <div class="side-menu__icon"> <i data-feather="percent"></i> </div>
                         <div class="side-menu__title"> General Commissions </div>
                     </inertia-link>
                 </li>
                 <li>
-                    <inertia-link href="/admin-team" :class="this.activeClassFunction">
+                    <inertia-link href="/admin-team" :class="[isActiveClassFunction('/admin-team')]">
                         <div class="side-menu__icon"> <i data-feather="users"></i> </div>
                         <div class="side-menu__title"> Affiliate Team </div>
                     </inertia-link>
@@ -41,24 +41,18 @@ export default {
     computed: {
         currentRouteName() {
             return window.location.pathname;
-        },
-        activeClassFunction(){
-            if(this.currentRouteName ==='/dashboard'){ 
-                // console.log('dashboard', this.currentRouteName);
-                return "side-menu side-menu--active"
-            }else if(this.currentRouteName ==='/profile'){
-                // console.log('profile', this.currentRouteName);
-                return "side-menu side-menu--active"
-            }else if(this.currentRouteName ==='/general-commissions'){
-                // console.log('general', this.currentRouteName);
-                return "side-menu side-menu--active"
-            }else if(this.currentRouteName ==='/admin-team'){
-                // console.log('admin', this.currentRouteName);
-                return "side-menu side-menu--active"
-            }
-            else{ 
-                return "side-menu"
-            }
+        }
+    },
+    methods: {
+         isActiveClassFunction(routename) {
+             console.log('here is current route', this.currentRouteName)
+             console.log('here is route name only', routename)
+            var classname = "side-menu"
+            if(this.currentRouteName == routename)
+                classname += ' side-menu--active'
+                console.log('it is classname',classname)
+
+            return classname
         }
     }
 }

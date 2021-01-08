@@ -19,7 +19,6 @@
                     <!-- END: Search -->
 
                     <!-- BEGIN: Notifications -->
-                    <notifications />
                         <!-- notification goes here -->
                     <!-- END: Notifications -->
                     
