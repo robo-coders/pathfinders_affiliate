@@ -37,7 +37,20 @@ class authController extends Controller
             $previous_user = User::find($coupon_code);
             $previous_user_role = $previous_user->roles->pluck('name');
             $previous_user_role = $previous_user_role->all();
-            if(in_array('coordinator',$previous_user_role)){
+            if(in_array('administrator',$previous_user_role)){
+                $user->assignRole('coordinator');
+                $general_commission = General_commission::first();
+                $commission = Coordinator_general_commission::create([
+                    'user_id'   => $user->id,
+                    'course_id' => $general_commission['course_id'],
+                    'point'     => $general_commission['coordinator_point'],
+                    'dsc'       => $general_commission['coordinator_dsc'],
+                    'isc'       => $general_commission['coordinator_idsc'],
+                    'gmdc'      => $general_commission['coordinator_gmdc'],
+                    'gsdc'      => $general_commission['coordinator_gsdc'],
+                    'gsrc'      => $general_commission['coordinator_gsrc'],
+                ]);
+            }elseif(in_array('coordinator',$previous_user_role)){
                 $user->assignRole('main dealers');
                 $general_commission = General_commission::first();
                 $commission = Main_dealer_general_commission::create([
