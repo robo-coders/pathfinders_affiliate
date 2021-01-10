@@ -4,6 +4,7 @@
         <!-- END: Mobile Menu -->
         <div class="flex">
             <!-- BEGIN: Side Menu -->
+            <notifications group="app" position="bottom left" />
             <Desktop />
             <!-- END: Side Menu -->
             <!-- BEGIN: Content -->

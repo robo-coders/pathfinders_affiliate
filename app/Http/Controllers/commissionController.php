@@ -10,7 +10,7 @@ class commissionController extends Controller
 {
     public function saveGeneralCommission(Request $request)
     {
-        $commissionRecordId = '2';
+        $commissionRecordId = '1';
         $data = $request->all();
         $model = General_commission::all();
         if($model->isEmpty()){
@@ -63,9 +63,12 @@ class commissionController extends Controller
             return response()->json([
                 'statusCode' => 200,
                 'data' => $response,
-                "hasError" => false
+                "hasError" => false,
+                "message" => [
+                    "title" => "General Commissions",
+                    "content" => "update successfully"
+                    ]
             ]);
-            //message goes here
         }
         public function getGeneralCommissions(Request $request)
         {

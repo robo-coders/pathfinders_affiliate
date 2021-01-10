@@ -12,7 +12,7 @@ import jQuery from 'jquery'
 window.jQuery = window.$ = jQuery
 
 import feather from 'feather-icons'
-
+import Notifications from 'vue-notification'
 window.feather = feather
 
 Vue.mixin({ methods: { route } });
@@ -20,6 +20,7 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 Vue.use(LaravelPermissionToVueJS);
+Vue.use(Notifications)
 
 const app = document.getElementById('app');
 

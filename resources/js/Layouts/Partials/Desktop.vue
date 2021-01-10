@@ -45,13 +45,9 @@ export default {
     },
     methods: {
          isActiveClassFunction(routename) {
-             console.log('here is current route', this.currentRouteName)
-             console.log('here is route name only', routename)
             var classname = "side-menu"
             if(this.currentRouteName == routename)
                 classname += ' side-menu--active'
-                console.log('it is classname',classname)
-
             return classname
         }
     }

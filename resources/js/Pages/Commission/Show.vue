@@ -8,7 +8,7 @@
             </div>
              <div class="rounded-md flex items-center px-5 py-4 mb-2 border border-theme-6 text-theme-6" v-bind:class="{hidden:hasError}"> 
                 <i data-feather="alert-octagon" class="w-6 h-6 mr-2"></i> 
-                Awesome alert with icon <i data-feather="x" class="w-4 h-4 ml-auto"></i> 
+                Fill all fields <i data-feather="x" class="w-4 h-4 ml-auto"></i> 
             </div>
         <!-- Form starts -->
             <!-- First row starts -->
@@ -146,12 +146,49 @@
                 <button type="button" class="button text-white bg-theme-1 shadow-md mr-2" @click="saveGeneralCommissions()">Save</button>
             </div>
         <!-- Form ends -->
+
+            <notifications group="form.success" position="bottom left">
+                <!--
+                    <template slot="body" slot-scope="props">
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <i :data-feather="props.item.data.icon" /> 
+                        <strong class="font-bold">{{ props.item.title }}</strong>
+                        <span class="block sm:inline">{{ props.item.text }}</span>
+                    </div>
+                </template>
+                -->
+            </notifications>
+            <notifications group="form.error" position="bottom left">
+            </notifications>
         </template>
     </app-layout>
 </template>
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+
+    function defaultGeneralCommissions() {
+        return {
+            coordinator_point                  :'',
+            coordinator_direct_sale_commission :'',
+            coordinator_inter_sale_commission  :'',
+            coordinator_main_dealer_commission :'',
+            coordinator_sub_dealer_commission  :'',
+            coordinator_sales_rep_commission   :'',
+            main_dealer_point                  :'',
+            main_dealer_direct_sale_commission :'',
+            main_dealer_inter_sale_commission  :'',
+            main_dealer_sub_dealer_commission  :'',
+            main_dealer_sales_rep_commission   :'',
+            sub_dealer_point                   :'',
+            sub_dealer_direct_sale_commission  :'',
+            sub_dealer_inter_sale_commission   :'',
+            sub_dealer_sales_rep_commission    :'',
+            sales_rep_point                    :'',
+            sales_rep_direct_sale_commission   :'',
+            sales_rep_inter_sale_commission    :'',
+        }
+    }
 
     export default {
         // props: ['sessions'],
@@ -161,26 +198,7 @@
         },
         data(){
             return{
-                createGeneralCommissions: {
-                    'coordinator_point'                  :'',
-                    'coordinator_direct_sale_commission' :'',
-                    'coordinator_inter_sale_commission'  :'',
-                    'coordinator_main_dealer_commission' :'',
-                    'coordinator_sub_dealer_commission'  :'',
-                    'coordinator_sales_rep_commission'   :'',
-                    'main_dealer_point'                  :'',
-                    'main_dealer_direct_sale_commission' :'',
-                    'main_dealer_inter_sale_commission'  :'',
-                    'main_dealer_sub_dealer_commission'  :'',
-                    'main_dealer_sales_rep_commission'   :'',
-                    'sub_dealer_point'                   :'',
-                    'sub_dealer_direct_sale_commission'  :'',
-                    'sub_dealer_inter_sale_commission'   :'',
-                    'sub_dealer_sales_rep_commission'    :'',
-                    'sales_rep_point'                    :'',
-                    'sales_rep_direct_sale_commission'   :'',
-                    'sales_rep_inter_sale_commission'    :'',
-                },
+                createGeneralCommissions: new defaultGeneralCommissions(),
                 hasError:true,
                 getCommissionsData: [],
             }
@@ -189,6 +207,9 @@
             this.getCommissionsView()
         },
         methods: {
+            resetForm() {
+                this.createGeneralCommissions = new defaultGeneralCommissions()
+            },
             getCommissionsView() {
                 axios.get('/get-general-commissions').then(({data}) => {
                     this.getCommissionsData = data;
@@ -198,57 +219,41 @@
                 var input = this.createGeneralCommissions;
                 var _this = this;
                 if(
-                    input['coordinator_point'] == ''                  
-                    // input['coordinator_direct_sale_commission'] == '' ||
-                    // input['coordinator_inter_sale_commission'] == ''  ||
-                    // input['coordinator_main_dealer_commission'] == '' ||
-                    // input['coordinator_sub_dealer_commission'] == ''  ||
-                    // input['coordinator_sales_rep_commission'] == ''   ||
-                    // input['main_dealer_point'] == ''                  ||
-                    // input['main_dealer_direct_sale_commission'] == '' ||
-                    // input['main_dealer_inter_sale_commission'] == ''  ||
-                    // input['main_dealer_sub_dealer_commission'] == ''  ||
-                    // input['main_dealer_sales_rep_commission'] == ''   ||
-                    // input['sub_dealer_point'] == ''                   ||
-                    // input['sub_dealer_direct_sale_commission'] == ''  ||
-                    // input['sub_dealer_inter_sale_commission'] == ''   ||
-                    // input['sub_dealer_sales_rep_commission'] == ''    ||
-                    // input['sales_rep_point'] == ''                    ||
-                    // input['sales_rep_direct_sale_commission'] == ''   ||
-                    // input['sales_rep_inter_sale_commission'] == ''
+                    input['coordinator_point'] == ''                  ||
+                    input['coordinator_direct_sale_commission'] == '' ||
+                    input['coordinator_inter_sale_commission'] == ''  ||
+                    input['coordinator_main_dealer_commission'] == '' ||
+                    input['coordinator_sub_dealer_commission'] == ''  ||
+                    input['coordinator_sales_rep_commission'] == ''   ||
+                    input['main_dealer_point'] == ''                  ||
+                    input['main_dealer_direct_sale_commission'] == '' ||
+                    input['main_dealer_inter_sale_commission'] == ''  ||
+                    input['main_dealer_sub_dealer_commission'] == ''  ||
+                    input['main_dealer_sales_rep_commission'] == ''   ||
+                    input['sub_dealer_point'] == ''                   ||
+                    input['sub_dealer_direct_sale_commission'] == ''  ||
+                    input['sub_dealer_inter_sale_commission'] == ''   ||
+                    input['sub_dealer_sales_rep_commission'] == ''    ||
+                    input['sales_rep_point'] == ''                    ||
+                    input['sales_rep_direct_sale_commission'] == ''   ||
+                    input['sales_rep_inter_sale_commission'] == ''
                     ){
                         this.hasError = false;
                     }else{
+                        let _this = this;
                         this.hasError = true;
-                        axios.post('/save-general-commissions', input).then(function (response){
-                            // if(!response.hasError) {
-                            //     this.$notify({
-                            //     group: 'foo',
-                            //     title: 'Important message',
-                            //     text: 'Hello user! This is a notification!'
-                            //     });
-                            // }
-                            this.createGeneralCommissions ={
-                                'coordinator_point'                  :'',
-                                'coordinator_direct_sale_commission' :'',
-                                'coordinator_inter_sale_commission'  :'',
-                                'coordinator_main_dealer_commission' :'',
-                                'coordinator_sub_dealer_commission'  :'',
-                                'coordinator_sales_rep_commission'   :'',
-                                'main_dealer_point'                  :'',
-                                'main_dealer_direct_sale_commission' :'',
-                                'main_dealer_inter_sale_commission'  :'',
-                                'main_dealer_sub_dealer_commission'  :'',
-                                'main_dealer_sales_rep_commission'   :'',
-                                'sub_dealer_point'                   :'',
-                                'sub_dealer_direct_sale_commission'  :'',
-                                'sub_dealer_inter_sale_commission'   :'',
-                                'sub_dealer_sales_rep_commission'    :'',
-                                'sales_rep_point'                    :'',
-                                'sales_rep_direct_sale_commission'   :'',
-                                'sales_rep_inter_sale_commission'    :'',
-                            }
-                            _this.getCommissionsView();
+                        axios.post('/save-general-commissions', input).then(response => {
+                            this.$notify({
+                                type: 'success',
+                                group: 'form.success',
+                                title: 'Success', //response.message.title,
+                                data: {
+                                    icon: 'user-check' // Data object can pass additional information to the custom-template
+                                },
+                                text: 'General Commissions has been updated'
+                            })
+                            this.resetForm();
+                            this.getCommissionsView();
                     });
                 }
             }
